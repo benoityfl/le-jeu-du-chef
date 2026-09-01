@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Le Jeu du Chef — YESforLOV</title>
+<title>La Table des Amants — YESforLOV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;0,600;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@ button{font-family:inherit}
 .brand-dots i:first-child{left:0;background:#F2685B}
 .brand-dots i:last-child{left:21px;background:#F4A93B}
 h1{margin:12px 0 6px;font-family:'Bodoni Moda',serif;font-style:italic;font-weight:600;
-  font-size:clamp(38px,9vw,52px);line-height:1;letter-spacing:-.01em;text-align:center}
+  font-size:clamp(34px,8.4vw,48px);line-height:1;letter-spacing:-.01em;text-align:center}
 .gold-rule{width:190px;height:14px;margin:4px 0 2px;position:relative;display:flex;align-items:center;justify-content:center}
 .gold-rule::before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;
   background:linear-gradient(90deg,transparent,#C9963F 25%,#F3D48A 50%,#C9963F 75%,transparent);
@@ -71,8 +71,10 @@ h1{margin:12px 0 6px;font-family:'Bodoni Moda',serif;font-style:italic;font-weig
 .tagline{margin-top:12px;font-family:'Bodoni Moda',serif;font-style:italic;font-size:16px;color:#7A4E33;text-align:center;max-width:440px}
 
 /* ---------- players ---------- */
-.players{margin-top:22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
-.players input{width:148px;padding:13px 18px;border-radius:99px;border:1.5px solid rgba(199,64,47,.28);
+.players-label{margin-top:22px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:#8A5A2E;font-weight:600;text-align:center}
+.players{margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.players input{width:186px;padding:13px 18px;border-radius:99px;border:1.5px solid rgba(199,64,47,.28);
   background:rgba(255,250,243,.7);color:var(--ink);font-size:16px;font-weight:600;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
 .players input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(199,64,47,.12)}
 .players .amp{font-family:'Bodoni Moda',serif;font-style:italic;font-size:18px;color:#8A5A2E}
@@ -335,6 +337,10 @@ h1{margin:12px 0 6px;font-family:'Bodoni Moda',serif;font-style:italic;font-weig
 #gate .skip{border:none;background:none;cursor:pointer;font-size:13px;color:#96755A;text-decoration:underline;padding:4px}
 #gate .rgpd{font-size:11px;color:#A08770;line-height:1.4}
 #gate .err{font-size:13px;color:var(--red-deep);font-weight:600;display:none}
+#gate .gift-code{border:2.5px dashed var(--red);border-radius:16px;background:#FFF2E8;
+  padding:16px 44px;font-family:'Bodoni Moda',serif;font-weight:600;font-size:34px;
+  letter-spacing:6px;color:var(--red);animation:pop .5s cubic-bezier(.2,.9,.3,1.2) both}
+#gate .rgpd a{text-decoration:underline}
 
 /* ---------- keyframes ---------- */
 @keyframes sheen{0%,55%{background-position:130% 0}85%,100%{background-position:-60% 0}}
@@ -411,29 +417,30 @@ h1{margin:12px 0 6px;font-family:'Bodoni Moda',serif;font-style:italic;font-weig
 <div class="wrap">
 
   <div class="brand-dots"><i></i><i></i></div>
-  <h1>Le Jeu du Chef</h1>
+  <h1>La Table des Amants</h1>
   <div class="gold-rule"><i></i></div>
   <div class="kicker">Enrober · Mijoter · Déguster</div>
 
   <div class="mode-toggle" id="modeToggle">
     <div class="mode-pill" id="modePill"></div>
-    <button data-mode="impose" class="on">Menu YESforLOV</button>
-    <button data-mode="carte">À la carte</button>
+    <button data-mode="carte" class="on">À la carte</button>
+    <button data-mode="impose">Menu YESforLOV</button>
   </div>
-  <div class="tagline" id="tagline">Un menu en 6 actes, servi dans l’ordre — du frisson à l’orgasme.</div>
+  <div class="tagline" id="tagline">Les dés décident : geste, morceau et durée, au hasard.</div>
 
+  <div class="players-label">À table ce soir · inscrivez vos prénoms ✎</div>
   <div class="players">
-    <input id="nameA" placeholder="Chef" maxlength="14" autocomplete="off">
+    <input id="nameA" placeholder="Prénom du Chef·fe" maxlength="14" autocomplete="off">
     <div class="amp">&amp;</div>
-    <input id="nameB" placeholder="Convive" maxlength="14" autocomplete="off">
+    <input id="nameB" placeholder="Prénom du Convive" maxlength="14" autocomplete="off">
   </div>
 
   <!-- Welcome -->
   <div class="panel" id="welcome">
-    <div class="over">Menu Sexy Fooding</div>
+    <div class="over">Menu YESforLOV</div>
     <img src="./logo-yesforlov.png" alt="YESforLOV">
     <h2>Bienvenue à la table des amants</h2>
-    <p>Chez YESforLOV, on vous propose une cuisine sensorielle, où le corps fait office de couverts, où l'on mange avec les mains et où l'on déguste avec la langue. Au menu : <strong>un cocktail, trois services, un digestif… et une seule condition : vous en remettre entièrement au chef·fe.</strong></p>
+    <p>Chez YESforLOV, on vous propose une cuisine sensorielle, où le corps fait office de couverts, où l'on mange avec les mains et où l'on déguste avec la langue. Au menu, <strong>un dîner érotique en 6 actes et 10 services, avec 6 produits YESforLOV sélectionnés pour accompagner chaque plat.</strong></p>
     <button class="start" id="startBtn">Commencer le repas</button>
   </div>
 
@@ -562,14 +569,23 @@ h1{margin:12px 0 6px;font-family:'Bodoni Moda',serif;font-style:italic;font-weig
 <!-- Email gate -->
 <div id="gateOverlay">
   <div id="gate">
-    <div class="over">Le chef vous a à la bonne</div>
-    <h3>La suite du menu est offerte</h3>
-    <p>Laissez votre email pour continuer le repas — et recevoir en cadeau les recettes secrètes et offres réservées de YESforLOV.</p>
-    <input id="gateEmail" type="email" placeholder="votre@email.com" autocomplete="email" inputmode="email">
-    <div class="err" id="gateErr">Hmm, cet email ne semble pas valide.</div>
-    <button class="send" id="gateSend">Continuer le repas</button>
-    <button class="skip" id="gateSkip">Continuer sans laisser d'email</button>
-    <div class="rgpd">En laissant votre email, vous acceptez de recevoir les communications YESforLOV. Désinscription en un clic.</div>
+    <div id="gateForm" style="display:contents">
+      <div class="over">Cadeau de la maison</div>
+      <h3>Le chef vous offre −10 %<br>sur ses gourmandises érotiques</h3>
+      <p>Laissez votre email : votre <strong>code cadeau s'affiche immédiatement</strong>. Et en bonus, le chef vous glisse ses recettes de mets aphrodisiaques… et ses plus grands secrets de cuisine.</p>
+      <input id="gateEmail" type="email" placeholder="votre@email.com" autocomplete="email" inputmode="email">
+      <div class="err" id="gateErr">Hmm, cet email ne semble pas valide.</div>
+      <button class="send" id="gateSend">Recevoir mon code −10 %</button>
+      <button class="skip" id="gateSkip">Continuer sans le cadeau</button>
+      <div class="rgpd">En laissant votre email, vous acceptez de recevoir les communications YESforLOV. Désinscription en un clic · <a href="https://www.yesforlov.com/pages/politique-de-confidentialite" target="_blank" rel="noopener" style="color:inherit">Confidentialité</a></div>
+    </div>
+    <div id="gateDone" style="display:none;flex-direction:column;align-items:center;gap:14px;width:100%">
+      <div class="over">Servi !</div>
+      <h3>Votre code cadeau</h3>
+      <div class="gift-code">CHEF10</div>
+      <p>−10 % sur toute la carte <strong>yesforlov.com</strong>.<br>Il vous attend aussi dans votre boîte mail.</p>
+      <button class="send" id="gateContinue">Continuer le repas</button>
+    </div>
   </div>
 </div>
 
@@ -734,7 +750,7 @@ const eur = n => n.toFixed(2).replace('.',',')+' €';
 
 /* ---------- state ---------- */
 const S = {
-  mode:'impose', phase:'welcome',        // welcome | idle | served | addition
+  mode:'carte', phase:'idle',        // welcome (menu uniquement) | idle | served | addition
   stepIdx:-1, course:0, heat:0,
   carteProduct:null, stepSecs:0,
   rolling:false, rolled:false, history:[],
@@ -916,6 +932,8 @@ function setDie(which, txt){ DIE_ELS[which].querySelector('span').textContent = 
 /* lance les dés avec arrêt séquencé ; pools = {G:[],M:[],D:[]}, final = {G,M,D}, onDone() */
 function rollDice(pools, final, onDone, only){
   S.rolling=true; updateCTA();
+  /* on remonte vers les dés pour voir le lancer */
+  try{ $('diceRow').scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
   const order = only ? [only] : ['G','M','D'];
   const base = only ? 700 : 1000;
   order.forEach(w=>{
@@ -984,6 +1002,8 @@ function revealGage(o){
   // reveal séquencé
   seq.forEach((el,i)=>{ setTimeout(()=>el.classList.add('in'), 80+i*110); });
   sfx.bell(); confetti(); gelDrop();
+  /* on descend découvrir le gage une fois servi */
+  setTimeout(()=>{ try{ $('card').scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }, 500);
 }
 
 /* ---------- timer ---------- */
@@ -1219,6 +1239,7 @@ function showAddition(){
   bill.appendChild(tot);
   renderStepper(); updateCTA();
   sfx.chime(); confetti();
+  setTimeout(()=>{ try{ $('card').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }, 300);
 }
 
 /* ---------- reset / modes ---------- */
@@ -1283,8 +1304,11 @@ $('gateSend').addEventListener('click', async ()=>{
   try{ localStorage.setItem('yfl_email', v); }catch(e){}
   try{ await EMAIL_GATE.submit(v); }catch(e){}
   sfx.chime(); confetti();
-  closeGate();
+  /* on révèle le code cadeau directement */
+  $('gateForm').style.display='none';
+  $('gateDone').style.display='flex';
 });
+$('gateContinue').addEventListener('click', closeGate);
 $('gateEmail').addEventListener('keydown', e=>{ if(e.key==='Enter') $('gateSend').click(); });
 $('gateSkip').addEventListener('click', ()=>{ S.gateSkipped=true; closeGate(); });
 
