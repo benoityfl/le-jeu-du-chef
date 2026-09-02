@@ -87,6 +87,7 @@ h1{margin:12px 0 6px;font-family:'Brandon','Poppins',sans-serif;font-weight:700;
 .players input{width:186px;padding:13px 18px;border-radius:99px;border:1.5px solid rgba(199,64,47,.28);
   background:rgba(255,250,243,.7);color:var(--ink);font-size:16px;font-weight:600;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
 .players input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(199,64,47,.12)}
+.players input::placeholder{font-weight:300;font-size:13.5px;color:#B08968;letter-spacing:.01em}
 .players .amp{font-family:'Brandon','Poppins',sans-serif;font-size:18px;color:#8A5A2E}
 
 /* ---------- hero packshot ---------- */
@@ -195,6 +196,7 @@ h1{margin:12px 0 6px;font-family:'Brandon','Poppins',sans-serif;font-weight:700;
 .g-geste{font-family:'Brandon','Poppins',sans-serif;font-weight:600;font-size:28px;color:var(--ink-2);line-height:1.15}
 .g-morceau{font-family:'Brandon','Poppins',sans-serif;font-weight:600;font-size:28px;color:var(--ink-2);line-height:1.15}
 .g-receiver{font-family:'Brandon','Poppins',sans-serif;font-size:19px;color:#8A6A50;line-height:1.2;margin-top:2px}
+.g-sep{font-family:'Poppins',sans-serif;font-weight:300;font-size:24px;color:#A87F5C;line-height:1.15}
 .g-el{opacity:0;transform:translateY(10px)}
 .g-el.in{animation:riseIn .45s cubic-bezier(.2,.9,.3,1.15) both}
 .g-note{margin-top:15px;font-size:17px;font-weight:600;color:var(--ink);font-family:'Brandon','Poppins',sans-serif;text-align:center;line-height:1.35}
@@ -504,6 +506,7 @@ h1{margin:12px 0 6px;font-family:'Brandon','Poppins',sans-serif;font-weight:700;
       </div>
       <div class="g-el g-line" id="gLine">
         <span class="g-geste" id="gGeste">À vos fourneaux</span>
+        <span class="g-sep" id="gSep" style="display:none">—</span>
         <span class="g-morceau" id="gMorceau"></span>
       </div>
       <div class="g-el g-receiver" id="gReceiver" style="display:none"></div>
@@ -528,7 +531,7 @@ h1{margin:12px 0 6px;font-family:'Brandon','Poppins',sans-serif;font-weight:700;
     <div id="addition">
       <img class="add-logo" src="./logo-yesforlov.png" alt="YESforLOV">
       <h3>La Table des Amants</h3>
-      <div class="add-kicker">Menu YESforLOV</div>
+      <div class="add-kicker" id="addKicker">Menu YESforLOV</div>
       <div class="lines" id="additionLines"></div>
       <div class="ticket">
         <div class="t-zz t-zz--top"></div>
@@ -538,7 +541,7 @@ h1{margin:12px 0 6px;font-family:'Brandon','Poppins',sans-serif;font-weight:700;
         <div class="bill" id="billList"></div>
         <div class="t-zz t-zz--bot"></div>
       </div>
-      <div class="bill-note">Les gages, eux, sont offerts par la maison.<br>Code <b>CHEF10</b> — −10&nbsp;% pour refaire le menu avec les vrais ingrédients.</div>
+      <div class="bill-note" id="billNote">Les gages, eux, sont offerts par la maison.<br>Code <b>CHEF10</b> — −10&nbsp;% pour refaire le menu avec les vrais ingrédients.</div>
       <a class="bill-cta" href="https://yesforlov.com" target="_blank" rel="noopener">Commander les ingrédients</a>
       <div class="foot">Service compris · le reste se règle en nature, sans modération.</div>
     </div>
@@ -884,7 +887,9 @@ function setHero(product, force){
     img.classList.remove('reveal'); void img.offsetWidth; img.classList.add('reveal');
     heroFlash();
   }
-  $('heroName').textContent = product+' · '+p.parfum;
+  /* évite les doublons type "Huile gourmande Mojito · Mojito" */
+  $('heroName').textContent = product.toLowerCase().includes(p.parfum.toLowerCase())
+    ? product : product+' · '+p.parfum;
   $('heroDesc').textContent = p.desc;
   $('heroCaption').style.display='flex';
 }
@@ -997,6 +1002,8 @@ function revealGage(o){
   $('gActor').textContent=o.actor||''; $('gKicker').textContent=o.kicker||'Au tour de';
   put('gActorWrap', !!o.actor);
   $('gGeste').textContent=o.geste||''; $('gMorceau').textContent=o.morceau||'';
+  /* tiret entre geste et morceau — sauf si le geste se termine par "sur" */
+  $('gSep').style.display = (o.morceau && o.geste && !/\bsur$/i.test(o.geste.trim())) ? '' : 'none';
   put('gLine', true);
   $('gReceiver').textContent=o.receiver?('de '+o.receiver):'';
   put('gReceiver', !!o.receiver);
@@ -1167,7 +1174,7 @@ function serveCourse(){
       recipe:g+' · '+m+' · '+d, product:key });
     revealGage({
       productTop: 'Service '+(idx+1),
-      productSub: 'Avec '+artic(key)+key+' '+p.parfum,
+      productSub: 'Avec '+artic(key)+key+(key.toLowerCase().includes(p.parfum.toLowerCase())?'':' '+p.parfum),
       productImg: p.image,
       kicker:'Au tour de', actor,
       geste:g, morceau:m, receiver,
@@ -1197,7 +1204,7 @@ function serveCourse(){
       if(S.history.length) S.history[S.history.length-1].recipe = lc.g+' · '+lc.m+' · '+lc.d;
       revealGage({
         productTop:'Service '+S.course,
-        productSub:'Avec '+artic(S.carteProduct)+S.carteProduct+' '+p.parfum,
+        productSub:'Avec '+artic(S.carteProduct)+S.carteProduct+(S.carteProduct.toLowerCase().includes(p.parfum.toLowerCase())?'':' '+p.parfum),
         productImg: p.image,
         kicker:'Au tour de', actor:lc.actor,
         geste:lc.g, morceau:lc.m, receiver:lc.receiver,
@@ -1213,6 +1220,11 @@ function showAddition(){
   S.phase='addition';
   $('gage').style.display='none';
   $('addition').style.display='flex';
+  /* en-tête et phrase du code selon la formule jouée */
+  $('addKicker').textContent = S.mode==='impose' ? 'Menu YESforLOV' : 'À la carte';
+  $('billNote').innerHTML = S.mode==='impose'
+    ? 'Les gages, eux, sont offerts par la maison.<br>Code <b>CHEF10</b> — −10&nbsp;% pour refaire le menu avec les vrais ingrédients.'
+    : 'Les gages, eux, sont offerts par la maison.<br>Code <b>CHEF10</b> — −10&nbsp;% pour cuisiner avec les vrais ingrédients.';
   showCard();
   const lines=$('additionLines'); lines.innerHTML='';
   S.history.forEach(h=>{
